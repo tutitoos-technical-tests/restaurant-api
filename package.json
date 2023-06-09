@@ -1,5 +1,5 @@
 {
-  "name": "express-jest",
+  "name": "restaurant-api",
   "version": "1.0.0",
   "license": "MIT",
   "main": "build/index.js",
