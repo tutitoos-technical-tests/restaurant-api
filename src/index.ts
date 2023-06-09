@@ -6,4 +6,4 @@ import startServer from "./server/index.js";
 const { port, database } = loadEnvironments;
 
 await startServer(+port);
-// await startDatabase(database);
+await startDatabase(database);

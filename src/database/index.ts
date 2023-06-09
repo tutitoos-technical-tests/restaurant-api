@@ -7,19 +7,41 @@ logger.setType("db");
 
 export let database: Sequelize | null = null;
 
+const syncDatabaseModels = async () => {
+  try {
+    await database.sync();
+
+    logger.info("Database synchronized");
+  } catch (error: unknown) {
+    const { message } = error as Error;
+
+    logger.error(`Error synchronizing database: ${message}`);
+    throw new Error("Failed to synchronize database models");
+  }
+};
+
 export const startDatabase = async ({ dbName, user, password, host, port }: DatabaseProps) => {
   try {
-    const sequelize = new Sequelize(dbName, user, password, {
+    database = new Sequelize(dbName, user, password, {
       host,
       port,
       dialect: "postgres",
+      ssl: false,
+      dialectOptions: {
+        ssl: {
+          require: false,
+          rejectUnauthorized: false,
+        },
+      },
+      logging: false,
+      native: false,
     });
 
-    await sequelize.authenticate();
+    await database.authenticate();
 
     logger.info("Connected");
 
-    database = sequelize;
+    await syncDatabaseModels();
   } catch (error: unknown) {
     const { message } = error as Error;
 
