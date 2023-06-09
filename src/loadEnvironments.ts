@@ -25,7 +25,7 @@ interface Environments {
     host: string;
     port: number;
   };
-  mail: {
+  nodemailer: {
     username: string;
     password: string;
     host: string;
@@ -33,7 +33,7 @@ interface Environments {
   };
 }
 
-const environments: Environments = {
+const loadEnvironments: Environments = {
   port: +port || 4001,
   debug,
   database: {
@@ -43,7 +43,7 @@ const environments: Environments = {
     host: pgHost,
     port: +pgPort,
   },
-  mail: {
+  nodemailer: {
     username: emailSmtpUsername,
     password: emailSmtpPassword,
     host: emailSmtpHost,
@@ -51,4 +51,4 @@ const environments: Environments = {
   },
 };
 
-export default environments;
+export default loadEnvironments;

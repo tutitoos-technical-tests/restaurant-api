@@ -3,7 +3,7 @@ import { mockOrderItems, mockOrders, mockPizzas, mockSalesmen } from "../../../m
 import CustomError from "../../../CustomError/CustomError.js";
 import { Order } from "../../../types/types.js";
 import generateId from "../../../utils/generateId.js";
-import { OrderItemModel, OrderModel, SalesmanModel } from "../../../database/models/index.js";
+import { OrderItemModel, OrderModel, PizzaModel, SalesmanModel } from "../../../database/models/index.js";
 
 export const getOrders = async (req: Request, res: Response, next: NextFunction) => {
   try {
@@ -16,7 +16,7 @@ export const getOrders = async (req: Request, res: Response, next: NextFunction)
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,
-      (error as CustomError).publicMessage || "Error al mostrar las IDs de los pedidos",
+      (error as CustomError).publicMessage || "Error displaying order IDs",
       (error as CustomError).statusCode ?? 500
     );
 
@@ -29,7 +29,7 @@ export const getOrderById = async (req: Request, res: Response, next: NextFuncti
     const { id: orderId } = req.params;
 
     if (!orderId) {
-      throw new CustomError("The id provided is not valid", "The id provided is not valid", 404);
+      throw new CustomError("The provided ID is not valid", "The provided ID is not valid", 404);
     }
 
     const order = await OrderModel.findOne({
@@ -38,7 +38,7 @@ export const getOrderById = async (req: Request, res: Response, next: NextFuncti
       },
     });
     if (!order) {
-      throw new CustomError(`The id (${orderId}) provided is not valid`, "The id provided is not valid", 404);
+      throw new CustomError(`The provided ID (${orderId}) is not valid`, "The provided ID is not valid", 404);
     }
 
     const salesman = await SalesmanModel.findOne({
@@ -51,25 +51,31 @@ export const getOrderById = async (req: Request, res: Response, next: NextFuncti
         order_id: orderId,
       },
     });
-    const orderDetails = items.map((item) => {
-      const pizza = mockPizzas.find((pizzaData) => pizzaData.id === item.dataValues.pizza_id);
 
-      return {
+    const orderDetails = [];
+    for (const item of items) {
+      const pizza = await PizzaModel.findOne({
+        where: {
+          id: item.dataValues.pizza_id,
+        },
+      });
+
+      orderDetails.push({
         item_id: item.dataValues.id,
-        pizza_name: pizza ? pizza.name : "Desconocida",
+        pizza_name: pizza ? pizza.dataValues.name : "Unknown",
         quantity: item.dataValues.quantity,
-      };
-    });
+      });
+    }
 
     return res.status(200).json({
       order_id: order.dataValues.id,
-      salesman_name: salesman ? salesman.dataValues.name : "Desconocido",
+      salesman_name: salesman ? salesman.dataValues.name : "Unknown",
       details: orderDetails,
     });
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,
-      (error as CustomError).publicMessage || "Error al mostrar el pedido",
+      (error as CustomError).publicMessage || "Error displaying order",
       (error as CustomError).statusCode ?? 500
     );
 
