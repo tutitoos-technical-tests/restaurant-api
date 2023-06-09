@@ -1,21 +1,22 @@
 import type { NextFunction, Request, Response } from "express";
 import { mockOrderItems, mockOrders, mockPizzas, mockSalesmen } from "../../../mocks/mockOrder.js";
 import CustomError from "../../../CustomError/CustomError.js";
-import Logger from "../../../utils/Logger.js";
 import { Order } from "../../../types/types.js";
 import generateId from "../../../utils/generateId.js";
-
-const logger = new Logger();
+import { OrderItemModel, OrderModel, SalesmanModel } from "../../../database/models/index.js";
 
 export const getOrders = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const orderIds = mockOrders.map((order) => order.id);
+    const orders = await OrderModel.findAll({
+      attributes: ["id"],
+    });
+    const orderIds = orders.map((order) => order.dataValues.id);
 
     return res.status(200).json(orderIds);
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,
-      (error as CustomError).publicMessage || "Error al mostrar las ids de los pedidos",
+      (error as CustomError).publicMessage || "Error al mostrar las IDs de los pedidos",
       (error as CustomError).statusCode ?? 500
     );
 
@@ -31,26 +32,38 @@ export const getOrderById = async (req: Request, res: Response, next: NextFuncti
       throw new CustomError("The id provided is not valid", "The id provided is not valid", 404);
     }
 
-    const order = mockOrders.find((orderData) => orderData.id === orderId);
+    const order = await OrderModel.findOne({
+      where: {
+        id: orderId,
+      },
+    });
     if (!order) {
       throw new CustomError(`The id (${orderId}) provided is not valid`, "The id provided is not valid", 404);
     }
 
-    const salesman = mockSalesmen.find((salesmanData) => salesmanData.id === order.salesman_id);
-    const items = mockOrderItems.filter((orderItemData) => orderItemData.order_id === orderId);
+    const salesman = await SalesmanModel.findOne({
+      where: {
+        id: order.dataValues.salesman_id,
+      },
+    });
+    const items = await OrderItemModel.findAll({
+      where: {
+        order_id: orderId,
+      },
+    });
     const orderDetails = items.map((item) => {
-      const pizza = mockPizzas.find((pizzaData) => pizzaData.id === item.pizza_id);
+      const pizza = mockPizzas.find((pizzaData) => pizzaData.id === item.dataValues.pizza_id);
 
       return {
-        item_id: item.id,
+        item_id: item.dataValues.id,
         pizza_name: pizza ? pizza.name : "Desconocida",
-        quantity: item.quantity,
+        quantity: item.dataValues.quantity,
       };
     });
 
     return res.status(200).json({
-      order_id: order.id,
-      salesman_name: salesman ? salesman.name : "Desconocido",
+      order_id: order.dataValues.id,
+      salesman_name: salesman ? salesman.dataValues.name : "Desconocido",
       details: orderDetails,
     });
   } catch (error: unknown) {
@@ -105,8 +118,6 @@ export const createOrder = async (req: Request, res: Response, next: NextFunctio
 
     mockOrders.push(order);
     mockOrderItems.push(...orderItems);
-
-    logger.info(`New order created with ID: ${orderId}`);
 
     return res.status(201).json({
       message: "Order created successfully",

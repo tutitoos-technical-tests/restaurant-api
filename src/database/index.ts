@@ -1,11 +1,27 @@
 import { Sequelize } from "sequelize";
 import Logger from "../utils/Logger.js";
-import { type DatabaseProps } from "../types/types";
+import loadEnvironments from "../loadEnvironments.js";
 
+const {
+  database: { dbName, user, password, host, port },
+} = loadEnvironments;
 const logger = new Logger();
 logger.setType("db");
 
-export let database: Sequelize | null = null;
+export const database: Sequelize = new Sequelize(dbName, user, password, {
+  host,
+  port,
+  dialect: "postgres",
+  ssl: false,
+  dialectOptions: {
+    ssl: {
+      require: false,
+      rejectUnauthorized: false,
+    },
+  },
+  logging: false,
+  native: false,
+});
 
 const syncDatabaseModels = async () => {
   try {
@@ -20,33 +36,15 @@ const syncDatabaseModels = async () => {
   }
 };
 
-export const startDatabase = async ({ dbName, user, password, host, port }: DatabaseProps) => {
+export const startDatabase = async () => {
   try {
-    database = new Sequelize(dbName, user, password, {
-      host,
-      port,
-      dialect: "postgres",
-      ssl: false,
-      dialectOptions: {
-        ssl: {
-          require: false,
-          rejectUnauthorized: false,
-        },
-      },
-      logging: false,
-      native: false,
-    });
-
     await database.authenticate();
+    await syncDatabaseModels();
 
     logger.info("Connected");
-
-    await syncDatabaseModels();
   } catch (error: unknown) {
     const { message } = error as Error;
 
     logger.error(`There was an error in database ${message}`);
-
-    database = null;
   }
 };
