@@ -4,14 +4,18 @@
   "license": "MIT",
   "main": "build/index.js",
   "type": "module",
+  "engines": {
+    "node": ">=17.0.0",
+    "npm": ">=7.0.0"
+  },
   "scripts": {
     "build": "tsc",
     "build:dev": "tsc -w",
     "start": "node .",
     "start:dev": "nodemon -q .",
     "test": "jest",
-    "test:dev": "jest --watchAll --passWithNoTests",
-    "test:coverage": "jest --coverage --watchAll=false --passWithNoTests",
+    "test:dev": "jest --watchAll",
+    "test:coverage": "jest --coverage --watchAll=false",
     "lint": "eslint src"
   },
   "dependencies": {
@@ -20,13 +24,12 @@
     "debug": "4.3.4",
     "express": "4.18.2",
     "morgan": "1.10.0",
-    "nodemailer": "^6.9.3",
-    "nodemailer-mailgun-transport": "^2.1.5",
-    "pg": "^8.11.0",
-    "pg-hstore": "^2.3.4",
-    "sequelize": "^6.32.0",
-    "sqlite3": "^5.1.6",
-    "uuid": "^9.0.0"
+    "nodemailer": "6.9.3",
+    "pg": "8.11.0",
+    "pg-hstore": "2.3.4",
+    "sequelize": "6.32.0",
+    "sqlite3": "5.1.6",
+    "uuid": "9.0.0"
   },
   "devDependencies": {
     "@types/chalk": "2.2.0",
@@ -37,10 +40,9 @@
     "@types/jest": "29.5.2",
     "@types/morgan": "1.9.4",
     "@types/node": "20.2.5",
-    "@types/nodemailer": "^6.4.8",
-    "@types/nodemailer-mailgun-transport": "^1.4.3",
+    "@types/nodemailer": "6.4.8",
     "@types/supertest": "2.0.12",
-    "@types/uuid": "^9.0.2",
+    "@types/uuid": "9.0.2",
     "@typescript-eslint/eslint-plugin": "5.59.9",
     "@typescript-eslint/parser": "5.59.9",
     "babel-jest": "29.5.0",
