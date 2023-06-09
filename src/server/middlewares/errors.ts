@@ -1,6 +1,9 @@
 import type { NextFunction, Request, Response } from "express";
 import CustomError from "../../CustomError/CustomError.js";
-import logger from "../../utils/logger.js";
+import Logger from "../../utils/Logger.js";
+
+const logger = new Logger();
+logger.setType("internal");
 
 export const notFoundEndpoint = (req: Request, res: Response, next: NextFunction) => {
   const customError = new CustomError(`Endpoint not found (${req.url})`, "Endpoint not found", 404);

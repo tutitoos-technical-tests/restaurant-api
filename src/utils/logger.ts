@@ -3,15 +3,24 @@ import "../loadEnvironments.js";
 import chalk from "chalk";
 import debugCreator from "debug";
 
-const debug = debugCreator("system:server");
+class Logger {
+  debug: debugCreator.Debugger;
 
-const logger = {
+  constructor() {
+    this.debug = debugCreator("system:server");
+  }
+
+  setType(type: "server" | "db" | "internal") {
+    this.debug = debugCreator(`system:${type}`);
+  }
+
   info(message: string) {
-    debug(chalk.blueBright(message));
-  },
-  error(message: string) {
-    debug(chalk.redBright(message));
-  },
-};
+    this.debug(chalk.blueBright(message));
+  }
 
-export default logger;
+  error(message: string) {
+    this.debug(chalk.redBright(message));
+  }
+}
+
+export default Logger;

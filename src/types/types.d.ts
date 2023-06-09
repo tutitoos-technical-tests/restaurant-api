@@ -21,3 +21,11 @@ export interface OrderItem extends Root {
   order_id: string;
   quantity: number;
 }
+
+export interface DatabaseProps {
+  dbName: string;
+  user: string;
+  password: string;
+  host: string;
+  port: number;
+}

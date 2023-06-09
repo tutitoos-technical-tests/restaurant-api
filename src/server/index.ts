@@ -1,5 +1,7 @@
 import app from "./app.js";
-import logger from "../utils/logger.js";
+import Logger from "../utils/Logger.js";
+
+const logger = new Logger();
 
 const startServer = async (port: number) =>
   new Promise((resolve, reject) => {
