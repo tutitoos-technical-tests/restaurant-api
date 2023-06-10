@@ -10,7 +10,7 @@
       "extends": ["xo-typescript", "prettier"],
       "files": ["*.ts", "*.tsx"],
       "rules": {
-        "no-unused-vars": ["warn"],
+        "no-unused-vars": "off",
         "@typescript-eslint/consistent-type-definitions": [
           "error",
           "interface"
@@ -20,7 +20,9 @@
         "@typescript-eslint/no-empty-function": "off",
         "no-implicit-coercion": "off",
         "@typescript-eslint/ban-types": "off",
-        "@typescript-eslint/naming-convention": "off"
+        "@typescript-eslint/naming-convention": "off",
+        "@typescript-eslint/no-unsafe-call": "off",
+        "@typescript-eslint/no-unsafe-assignment": "off"
       }
     },
     {
