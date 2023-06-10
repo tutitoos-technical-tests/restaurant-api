@@ -16,6 +16,12 @@ describe("Given a GET request to /orders endpoint", () => {
     test("Then it should respond with a status code 200 and the list of orders", async () => {
       const expectedStatus = 200;
 
+      OrderModel.findAll = jest.fn().mockReturnValue(
+        mockOrders.map((order) => ({
+          dataValues: order,
+        }))
+      );
+
       const response = await request(app).get(list);
 
       expect(response.status).toBe(expectedStatus);
