@@ -11,13 +11,7 @@ export const notFoundEndpoint = (req: Request, res: Response, next: NextFunction
   next(customError);
 };
 
-export const generalError = (
-  error: CustomError,
-  req: Request,
-  res: Response,
-   
-  next: NextFunction
-) => {
+export const generalError = (error: CustomError, req: Request, res: Response, next: NextFunction) => {
   const statusCode = error.statusCode ?? 500;
   const publicMessage = error.publicMessage || "General error";
 
