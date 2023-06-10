@@ -9,7 +9,7 @@ trim_trailing_whitespace = true
 insert_final_newline = true
 
 [*.{js,ts}]
-max_line_length = 130
+max_line_length = 150
 quote_type = double
 semi = true
 
