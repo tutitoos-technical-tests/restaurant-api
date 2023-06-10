@@ -1,5 +1,5 @@
 import { getPing } from "./generalControllers";
-import { Request, Response } from "express";
+import { type Request, type Response } from "express";
 
 describe("Given the getPing function", () => {
   describe("When it receives a request", () => {

@@ -1,5 +1,5 @@
 import { OrderItemModel, OrderModel, PizzaModel, SalesmanModel } from "../../../database/models";
-import { NextFunction, Request, Response } from "express";
+import { type NextFunction, type Request, type Response } from "express";
 import { createOrder, getOrderById, getOrders } from "./orderControllers";
 import CustomError from "../../../CustomError/CustomError";
 import { mockOrder, mockOrderItems, mockOrders, mockPizzas, mockSalesmen } from "../../../mocks/mockOrder";
@@ -224,7 +224,7 @@ describe("Given the createOrder function", () => {
       const expectedStatus = 201;
       const expectedBody = {
         message: "Order created successfully",
-        order_id: expect.any(String),
+        order_id: mockOrder.order_id,
       };
 
       const req: Partial<Request> = {

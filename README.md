@@ -65,11 +65,11 @@ Este endpoint opcional recibe una dirección de correo electrónico y envía un 
 
 ## Tecnologías utilizadas
 
-- Node.js (17)
-- Express (4.18.2)
-- Sequelize (6.32.0)
-- Nodemailer (6.9.3)
-- TypeScript (5.1.3)
+-   Node.js (17)
+-   Express (4.18.2)
+-   Sequelize (6.32.0)
+-   Nodemailer (6.9.3)
+-   TypeScript (5.1.3)
 
 ## Instrucciones de instalación y uso
 
@@ -79,9 +79,9 @@ Sigue los pasos a continuación para instalar y ejecutar la aplicación:
 2. Clona el repositorio del proyecto.
 3. Ejecuta el siguiente comando para instalar las dependencias:
 
-   ```
-   npm install
-   ```
+    ```
+    npm install
+    ```
 
 4. Crea un archivo `.env` en la
 
@@ -103,19 +103,19 @@ EMAIL_SMTP_PASSWORD=<Contraseña del servidor SMTP>
 
 5. Ejecuta el siguiente comando para compilar el proyecto:
 
-   ```
-   npm run build
-   ```
+    ```
+    npm run build
+    ```
 
-   Este comando compilará el código TypeScript y generará el código JavaScript listo para ser ejecutado.
+    Este comando compilará el código TypeScript y generará el código JavaScript listo para ser ejecutado.
 
 6. Ejecuta el siguiente comando para iniciar la aplicación:
 
-   ```
-   npm run start
-   ```
+    ```
+    npm run start
+    ```
 
-   Esto iniciará el servidor y la API estará disponible en `http://localhost:<puerto>`, donde `<puerto>` es el puerto configurado en las variables de entorno.
+    Esto iniciará el servidor y la API estará disponible en `http://localhost:<puerto>`, donde `<puerto>` es el puerto configurado en las variables de entorno.
 
 ## Pruebas
 
@@ -124,19 +124,19 @@ El proyecto incluye pruebas automatizadas para garantizar la calidad del código
 1. Asegúrate de haber completado los pasos de instalación y tener todas las dependencias instaladas.
 2. Ejecuta el siguiente comando para ejecutar las pruebas:
 
-   ```
-   npm test
-   ```
+    ```
+    npm test
+    ```
 
-   Esto ejecutará los casos de prueba utilizando el framework Jest.
+    Esto ejecutará los casos de prueba utilizando el framework Jest.
 
 3. Para obtener información sobre la cobertura de las pruebas, ejecuta el siguiente comando:
 
-   ```
-   npm run coverage
-   ```
+    ```
+    npm run coverage
+    ```
 
-   Esto generará un informe de cobertura que puedes consultar para evaluar la calidad de las pruebas realizadas.
+    Esto generará un informe de cobertura que puedes consultar para evaluar la calidad de las pruebas realizadas.
 
 Se recomienda escribir pruebas para cada uno de los endpoints y las funcionalidades clave de la API.
 

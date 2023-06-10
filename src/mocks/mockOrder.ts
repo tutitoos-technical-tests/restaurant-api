@@ -1,4 +1,4 @@
-import { Order, OrderItem, Pizza, Salesman } from "../types/types";
+import { type Order, type OrderItem, type Pizza, type Salesman } from "../types/types";
 
 export const mockOrder = {
   order_id: "0b090da2-e356-4525-a66e-1b7457509723",

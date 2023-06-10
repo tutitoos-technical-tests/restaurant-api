@@ -1,7 +1,7 @@
 import type { NextFunction, Request, Response } from "express";
 import { mockOrderItems, mockOrders, mockPizzas, mockSalesmen } from "../../../mocks/mockOrder.js";
 import CustomError from "../../../CustomError/CustomError.js";
-import { Order } from "../../../types/types.js";
+import { type Order } from "../../../types/types.js";
 import generateId from "../../../utils/generateId.js";
 import { OrderItemModel, OrderModel, PizzaModel, SalesmanModel } from "../../../database/models/index.js";
 
@@ -52,25 +52,26 @@ export const getOrderById = async (req: Request, res: Response, next: NextFuncti
       },
     });
 
-    const orderDetails = [];
-    for (const item of items) {
+    const orderDetails = items.map(async (item) => {
       const pizza = await PizzaModel.findOne({
         where: {
           id: item.dataValues.pizza_id,
         },
       });
 
-      orderDetails.push({
+      return {
         item_id: item.dataValues.id,
         pizza_name: pizza ? pizza.dataValues.name : "Unknown",
         quantity: item.dataValues.quantity,
-      });
-    }
+      };
+    });
+
+    const resolverOrderDetails = await Promise.all(orderDetails);
 
     return res.status(200).json({
       order_id: order.dataValues.id,
       salesman_name: salesman ? salesman.dataValues.name : "Unknown",
-      details: orderDetails,
+      details: resolverOrderDetails,
     });
   } catch (error: unknown) {
     const customError = new CustomError(

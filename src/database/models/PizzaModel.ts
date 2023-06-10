@@ -1,7 +1,10 @@
 import { DataTypes, Model } from "sequelize";
 import { database } from "../index.js";
+import { type Pizza } from "../../types/types.js";
 
-class PizzaModel extends Model {}
+class PizzaModel extends Model {
+  declare dataValues: Pizza;
+}
 
 PizzaModel.init(
   {

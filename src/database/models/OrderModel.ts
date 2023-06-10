@@ -1,8 +1,11 @@
 import { DataTypes, Model } from "sequelize";
 import { database } from "../index.js";
 import SalesmanModel from "./SalesmanModel.js";
+import { type Order } from "../../types/types.js";
 
-class OrderModel extends Model {}
+class OrderModel extends Model {
+  declare dataValues: Order;
+}
 
 OrderModel.init(
   {

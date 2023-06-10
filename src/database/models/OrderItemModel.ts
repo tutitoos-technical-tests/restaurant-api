@@ -2,8 +2,11 @@ import { DataTypes, Model } from "sequelize";
 import { database } from "../index.js";
 import OrderModel from "./OrderModel.js";
 import PizzaModel from "./PizzaModel.js";
+import { type OrderItem } from "../../types/types.js";
 
-class OrderItemModel extends Model {}
+class OrderItemModel extends Model {
+  declare dataValues: OrderItem;
+}
 
 OrderItemModel.init(
   {
