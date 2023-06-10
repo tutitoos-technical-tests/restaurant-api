@@ -34,7 +34,7 @@ describe("Given the generalError middleware", () => {
 
 describe("Given the notFoundEndpoint middleware", () => {
   describe("When it receives a next function", () => {
-    test("Then it should call the received next function with a CustomError object representing a 404 'Endpoint not found' error", () => {
+    test("Then it should call the received next function with a CustomError representing a 404 'Endpoint not found' error", () => {
       const endpoint = "/";
       const errorMessage = `Endpoint not found (${endpoint})`;
       const expectedStatus = 404;
