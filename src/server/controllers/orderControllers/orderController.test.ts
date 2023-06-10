@@ -103,11 +103,7 @@ describe("Given the getOrderById function", () => {
     test("Then it should throw an error if the order is not found", async () => {
       const orderId = "nonexistent_order_id";
       const expectedStatus = 404;
-      const expectedError = new CustomError(
-        `The provided ID (${orderId}) is not valid`,
-        "The provided ID is not valid",
-        expectedStatus
-      );
+      const expectedError = new CustomError(`The provided ID (${orderId}) is not valid`, "The provided ID is not valid", expectedStatus);
 
       const req: Partial<Request> = {
         params: {
@@ -224,7 +220,7 @@ describe("Given the createOrder function", () => {
       const expectedStatus = 201;
       const expectedBody = {
         message: "Order created successfully",
-        order_id: mockOrder.order_id,
+        order_id: "mocked-uuid",
       };
 
       const req: Partial<Request> = {
