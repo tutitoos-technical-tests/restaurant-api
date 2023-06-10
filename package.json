@@ -20,7 +20,7 @@
     "prepare": "husky install"
   },
   "dependencies": {
-    "chalk": "4.1.2",
+    "chalk": "5.2.0",
     "cors": "2.8.5",
     "debug": "4.3.4",
     "express": "4.18.2",
