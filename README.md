@@ -1,3 +1,9 @@
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=Tutitoos_restaurant-api&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=Tutitoos_restaurant-api)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=Tutitoos_restaurant-api&metric=coverage)](https://sonarcloud.io/summary/new_code?id=Tutitoos_restaurant-api)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=Tutitoos_restaurant-api&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=Tutitoos_restaurant-api)
+[![Technical Debt](https://sonarcloud.io/api/project_badges/measure?project=Tutitoos_restaurant-api&metric=sqale_index)](https://sonarcloud.io/summary/new_code?id=Tutitoos_restaurant-api)
+[![Security Rating](https://sonarcloud.io/api/project_badges/measure?project=Tutitoos_restaurant-api&metric=security_rating)](https://sonarcloud.io/summary/new_code?id=Tutitoos_restaurant-api)
+
 # API para Restaurante
 
 Este proyecto consiste en desarrollar una API REST para un restaurante. La API será consumida por un cliente y permitirá gestionar pedidos de pizzas. Se utilizará una base de datos simulada con las entidades de pizzas, vendedores, pedidos y elementos del pedido.
