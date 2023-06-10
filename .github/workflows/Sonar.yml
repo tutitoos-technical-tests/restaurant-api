@@ -15,8 +15,6 @@ jobs:
           fetch-depth: 0 # Shallow clones should be disabled for a better relevancy of analysis
       - name: Node Modules
         run: npm ci
-      - name: Building Project
-        run: npm run build
       - name: Coverage
         run: npm run test:coverage
         env:
