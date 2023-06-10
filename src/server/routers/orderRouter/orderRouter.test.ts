@@ -14,6 +14,7 @@ const { list, item, newItem } = routes.order;
 describe("Given a GET request to /orders endpoint", () => {
   describe("When retrieving the list of orders", () => {
     test("Then it should respond with a status code 200 and the list of orders", async () => {
+      const orderIds = mockOrders.map((order) => order.id);
       const expectedStatus = 200;
 
       OrderModel.findAll = jest.fn().mockReturnValue(
@@ -25,7 +26,7 @@ describe("Given a GET request to /orders endpoint", () => {
       const response = await request(app).get(list);
 
       expect(response.status).toBe(expectedStatus);
-      // Add assertions for the response body as needed
+      expect(response.body).toEqual(orderIds);
     });
   });
 });
@@ -71,7 +72,6 @@ describe("Given a PUT request to /orders/new endpoint", () => {
 
       expect(response.status).toBe(expectedStatus);
       expect(response.body).toEqual(expectedBody);
-      // Add assertions for the response body as needed
     });
   });
 });
