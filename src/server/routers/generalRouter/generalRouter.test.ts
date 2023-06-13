@@ -1,6 +1,6 @@
 import request from "supertest";
-import app from "../../app.js";
-import routes from "../routes.js";
+import app from "../../app";
+import routes from "../routes";
 
 const { ping } = routes.general;
 

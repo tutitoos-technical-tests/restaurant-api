@@ -4,7 +4,7 @@ import loadEnvironments from "../../../loadEnvironments";
 import { postThankYou } from "./emailControllers";
 import { type Request, type Response, type NextFunction } from "express";
 
-jest.mock("../../../nodemailer/connect.js");
+jest.mock("../../../nodemailer/connect");
 
 const {
   nodemailer: { username },

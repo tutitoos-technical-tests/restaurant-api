@@ -1,8 +1,8 @@
 import request from "supertest";
-import app from "../../app.js";
-import routes from "../routes.js";
-import { mockOrder, mockOrderItems, mockOrders, mockPizzas, mockSalesmen } from "../../../mocks/mockOrder.js";
-import { OrderItemModel, OrderModel, PizzaModel, SalesmanModel } from "../../../database/models/index.js";
+import app from "../../app";
+import routes from "../routes";
+import { mockOrder, mockOrderItems, mockOrders, mockPizzas, mockSalesmen } from "../../../mocks/mockOrder";
+import { OrderItemModel, OrderModel, PizzaModel, SalesmanModel } from "../../../database/models/index";
 import { v4 as uuidv4 } from "uuid";
 
 jest.mock("uuid", () => ({
