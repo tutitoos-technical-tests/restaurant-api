@@ -13,5 +13,8 @@ max_line_length = 150
 quote_type = double
 semi = true
 
+[*.test.{js,ts}]
+max_line_length = 180
+
 [*.md]
 indent_size = 4
