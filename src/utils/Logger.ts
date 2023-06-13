@@ -10,7 +10,7 @@ class Logger {
     this.debug = debugCreator("system:server");
   }
 
-  setType(type: "server" | "db" | "internal") {
+  setType(type: "server" | "db" | "mail" | "internal") {
     this.debug = debugCreator(`system:${type}`);
   }
 

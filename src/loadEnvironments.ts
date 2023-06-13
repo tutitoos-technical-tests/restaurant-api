@@ -13,6 +13,7 @@ const {
   EMAIL_SMTP_PASSWORD: emailSmtpPassword,
   EMAIL_SMTP_HOST: emailSmtpHost,
   EMAIL_SMTP_PORT: emailSmtpPort,
+  EMAIL_TO_TEST: emailToTest,
 } = process.env;
 
 interface Environments {
@@ -30,6 +31,7 @@ interface Environments {
     password: string;
     host: string;
     port: number;
+    emailToTest: string;
   };
 }
 
@@ -48,6 +50,7 @@ const loadEnvironments: Environments = {
     password: emailSmtpPassword,
     host: emailSmtpHost,
     port: +emailSmtpPort,
+    emailToTest,
   },
 };
 

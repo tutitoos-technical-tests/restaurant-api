@@ -22,7 +22,7 @@ describe("Given the getOrders function", () => {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
       };
-      const next = jest.fn();
+      const next: Partial<NextFunction> = jest.fn();
 
       await getOrders(req as Request, res as Response, next as NextFunction);
 
@@ -34,15 +34,13 @@ describe("Given the getOrders function", () => {
 
   describe("When it encounters an error while retrieving the orders", () => {
     test("Then it should call the received next function with a custom error", async () => {
-      const errorMessage = "Database connection error";
-      const expectedStatus = 500;
-      const expectedError = new CustomError(errorMessage, "Error displaying order IDs", expectedStatus);
+      const expectedError = new CustomError("Database connection error", "Error displaying order IDs", 500);
 
-      OrderModel.findAll = jest.fn().mockRejectedValue(new Error(errorMessage));
+      OrderModel.findAll = jest.fn().mockRejectedValue(new Error(expectedError.message));
 
       const req: Partial<Request> = {};
       const res: Partial<Response> = {};
-      const next = jest.fn();
+      const next: Partial<NextFunction> = jest.fn();
 
       await getOrders(req as Request, res as Response, next as NextFunction);
 
@@ -56,7 +54,7 @@ describe("Given the getOrderById function", () => {
     test("Then it should respond with a status code 200 and the order details", async () => {
       const orderId = mockOrder.order_id;
       const expectedBody = {
-        order_id: mockOrder.order_id,
+        order_id: orderId,
         salesman_name: mockOrder.salesman_name,
         details: mockOrder.details,
       };
@@ -71,7 +69,7 @@ describe("Given the getOrderById function", () => {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
       };
-      const next = jest.fn();
+      const next: Partial<NextFunction> = jest.fn();
 
       OrderModel.findOne = jest.fn().mockResolvedValue({
         dataValues: mockOrders[0],
@@ -111,7 +109,7 @@ describe("Given the getOrderById function", () => {
         },
       };
       const res: Partial<Response> = {};
-      const next = jest.fn();
+      const next: Partial<NextFunction> = jest.fn();
 
       OrderModel.findOne = jest.fn().mockResolvedValue(null);
 
@@ -133,7 +131,7 @@ describe("Given the getOrderById function", () => {
         },
       };
       const res: Partial<Response> = {};
-      const next = jest.fn();
+      const next: Partial<NextFunction> = jest.fn();
 
       await getOrderById(req as Request, res as Response, next as NextFunction);
 
@@ -154,7 +152,7 @@ describe("Given the getOrderById function", () => {
         },
       };
       const res: Partial<Response> = {};
-      const next = jest.fn();
+      const next: Partial<NextFunction> = jest.fn();
 
       OrderModel.findOne = jest.fn().mockRejectedValue(new Error(errorMessage));
 
@@ -186,7 +184,7 @@ describe("Given the getOrderById function", () => {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
       };
-      const next = jest.fn();
+      const next: Partial<NextFunction> = jest.fn();
 
       OrderModel.findOne = jest.fn().mockResolvedValue({
         dataValues: mockOrders[0],
@@ -230,7 +228,7 @@ describe("Given the createOrder function", () => {
         status: jest.fn().mockReturnThis(),
         json: jest.fn(),
       };
-      const next = jest.fn();
+      const next: Partial<NextFunction> = jest.fn();
 
       const selectedSalesman = mockSalesmen.find((salesman) => salesman.round_robin_index === 1);
       const orderId = uuidv4();
@@ -268,7 +266,7 @@ describe("Given the createOrder function", () => {
         body: {},
       };
       const res: Partial<Response> = {};
-      const next = jest.fn();
+      const next: Partial<NextFunction> = jest.fn();
 
       await createOrder(req as Request, res as Response, next as NextFunction);
 
@@ -285,7 +283,7 @@ describe("Given the createOrder function", () => {
         body: { pizzas: [] },
       };
       const res: Partial<Response> = {};
-      const next = jest.fn();
+      const next: Partial<NextFunction> = jest.fn();
 
       await createOrder(req as Request, res as Response, next as NextFunction);
 
@@ -322,7 +320,7 @@ describe("Given the createOrder function", () => {
         body: { pizzas: ["pizza1", "pizza2"] },
       };
       const res: Partial<Response> = {};
-      const next = jest.fn();
+      const next: Partial<NextFunction> = jest.fn();
 
       jest.spyOn(mockPizzas, "find").mockImplementation(() => {
         throw new Error("Error creating order");

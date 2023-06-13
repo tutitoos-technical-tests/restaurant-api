@@ -1,29 +1,36 @@
 import type { NextFunction, Request, Response } from "express";
 import CustomError from "../../../CustomError/CustomError.js";
 import nodemailer from "../../../nodemailer/connect.js";
+import loadEnvironments from "../../../loadEnvironments.js";
+
+const {
+  nodemailer: { username },
+} = loadEnvironments;
 
 export const postThankYou = async (req: Request, res: Response, next: NextFunction) => {
   try {
-    const { email } = req.body as {
-      email: string;
+    const { to, subject, text } = req.body as {
+      to: string;
+      subject: string;
+      text: string;
     };
 
-    if (!email) {
-      throw new CustomError("Correo electrónico no proporcionado", "Correo electrónico no proporcionado", 400);
+    if (!to) {
+      throw new CustomError("Recipient email not provided", "Recipient email is required", 400);
     }
 
     await nodemailer.sendMail({
-      from: "¡tutitoosdev@gmail.com",
-      to: email,
-      subject: "Gracias por tu pedido",
-      text: "¡Gracias por tu pedido! Apreciamos tu preferencia.",
+      from: username,
+      to,
+      subject: subject ?? "Thank You for Your Order",
+      text: text ?? "Thank you for your order! We appreciate your preference.",
     });
 
-    return res.status(200).json({ message: "Correo electrónico de agradecimiento enviado" });
+    return res.status(200).json({ message: "Thank you email sent" });
   } catch (error: unknown) {
     const customError = new CustomError(
       (error as Error).message,
-      (error as CustomError).publicMessage || "Error al enviar el correo electrónico de agradecimiento",
+      (error as CustomError).publicMessage || "Error sending the thank you email",
       (error as CustomError).statusCode ?? 500
     );
 

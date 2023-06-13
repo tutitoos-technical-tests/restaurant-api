@@ -51,13 +51,13 @@
       "response": []
     },
     {
-      "name": "PUT Send Email",
+      "name": "POST Send Email",
       "request": {
-        "method": "PUT",
+        "method": "POST",
         "header": [],
         "body": {
           "mode": "raw",
-          "raw": "{\r\n    \"email\": \"<email>\"\r\n}",
+          "raw": "{\r\n    \"to\": \"<email>\"\r\n}",
           "options": {
             "raw": {
               "language": "json"
