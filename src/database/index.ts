@@ -32,7 +32,7 @@ const syncDatabaseModels = async () => {
     const { message } = error as Error;
 
     logger.error(`Error synchronizing database: ${message}`);
-    throw new Error("Failed to synchronize database models");
+    throw new Error("Failed to synchronize the database models");
   }
 };
 
